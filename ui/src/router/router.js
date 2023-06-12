@@ -5,6 +5,7 @@ import authRoutes from "../Apps/auth/services/routes.auth";
 import ChoosePokemon from "../Apps/principal/ChoosePokemon";
 import {MyPokemons} from "../Apps/principal/MyPokemons.jsx";
 import {PokeStats} from "../components/PokeStats.jsx";
+import One from "../Apps/example/One";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path:'/pokemon/:id/details',
                 Component: PokeStats
+            },
+            {
+                path: '/test',
+                Component: One
             }
         ]
     }

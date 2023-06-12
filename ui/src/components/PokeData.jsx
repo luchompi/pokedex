@@ -1,13 +1,18 @@
 import {pokemonStore} from "../store/pokemon.store.js";
 import {useNavigate} from "react-router-dom";
-
+import Swal from "sweetalert2";
 const PokeData = pokemon => {
     const url = useNavigate()
     const setPokemon = pokemonStore(state => state.storePokemon)
 
     const choosePokemon = () => {
         setPokemon(pokemon.pokemon)
-        console.log('Pokemon seleccionado: ', pokemon.pokemon)
+      Swal.fire({
+        title: 'Pokemon seleccionado',
+        text: `Seleccionaste a ${pokemon.pokemon?.name}`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      })
         url('/')
     }
   return (

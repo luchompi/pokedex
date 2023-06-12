@@ -5,9 +5,7 @@ export const PokeStats = () => {
 	const pokeID = useParams().id;
 	console.log(pokeID)
 	const pokemons = pokemonStore(state => state.pokemon);
-
 	const foundPokemon = pokemons.find(pokemon => pokemon.id == pokeID);
-	console.log(foundPokemon)
 
 	return (
 		<>
@@ -41,6 +39,7 @@ export const PokeStats = () => {
 								</div>
 							</div>
 								<div className="col col-lg-6">
+									<h6>Tipo(s): {foundPokemon.types[0]?.type?.name} {foundPokemon.types[1]?.type?.name ? ' - ' + foundPokemon.types[1]?.type?.name : ''} </h6>
 								<h6>Habilidades</h6>
 									{foundPokemon.abilities.map((item, index) => (
 										<div key={index}>

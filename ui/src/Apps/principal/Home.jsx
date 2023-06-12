@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import pokeApi from "../../apis/poke.api"
+import { fetchPokemon } from "./services/functions.principal"
 import Images from "./Images"
 const Home = () => {
     const [kword, setKword] = useState('')
@@ -15,7 +15,7 @@ const Home = () => {
         const getPokemon = async () => {
             try {
                 setLoading(true)
-                const response = await pokeApi.get(`pokemon/${kword}`)
+                const response = await fetchPokemon(kword)
                 setPokemon(response.data)
                 setError(null)
                 setLoading(false)

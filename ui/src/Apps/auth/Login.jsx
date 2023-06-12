@@ -2,7 +2,7 @@ import { useState } from "react"
 import Swal from "sweetalert2"
 import { GetTokens } from "./services/services.auth"
 import { useSessionStore } from "../../store/store.session"
-import { UseAuth } from "./services/validators.auth"
+import { UseAuth } from "./services/middlewares.auth"
 import { useNavigate } from "react-router-dom"
 const Login = () => {
     const url = useNavigate()
@@ -14,7 +14,6 @@ const Login = () => {
     const setUserValue = (e) => {
         setUsername(e.target.value)
     }
-
     const setPasswordValue = (e) => {
         setPassword(e.target.value)
     }
@@ -52,7 +51,6 @@ const Login = () => {
     return (
         <div className="col col-lg-6">
             <div className="card">
-
                 <div className="card-body">
                     <h5 className="card-title">Ingrese sus credenciales</h5>
                     <form onSubmit={DoLogin}>

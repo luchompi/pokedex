@@ -12,7 +12,7 @@ export const MyPokemons = () => {
 							<h5 className="card-title">Pokemon {item.id}: {item.name}</h5>
 							<img src={item.sprites?.front_default} width={150} height={150} alt={item.name}/>
 							<p className="card-text">Type(s): {item.types[0]?.type?.name} { item.types[1]?.type?.name ?  ' ' + item.types[1]?.type?.name : ''}
-                      </p>
+	                        </p>
 							<Link to={`/pokemon/${item.id}/details`} className="btn btn-primary">Ver datos</Link>
 						</div>
 				</div>

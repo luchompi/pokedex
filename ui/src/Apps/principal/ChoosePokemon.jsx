@@ -1,34 +1,46 @@
-import { useEffect, useState } from "react"
-import pokeApi from "../../apis/poke.api"
-import PokeData from "../../components/PokeData"
 import { useNavigate } from "react-router-dom"
-import { UseAuth } from "../auth/services/validators.auth"
+import { useEffect, useState } from "react"
+import PokeData from "../../components/PokeData"
+import { UseAuthRedirect } from "../auth/services/middlewares.auth"
 import { useSessionStore } from "../../store/store.session"
+import { pokemonStore } from "../../store/pokemon.store"
+import { fetchPokemon } from "./services/functions.principal"
 
 const ChoosePokemon = () => {
-    const url = useNavigate()
     const [pokemon, setPokemon] = useState([])
+    const pokeballs = pokemonStore(state => state.pokeballs)
     const [loading, setLoading] = useState(false)
     const isAuth = useSessionStore(state => state.isAuth)
-    useEffect(() => {
-        const getPokemons = async () => {
-            for (let i = 0; i < 3; i++) {
-                const id = Math.floor(Math.random() * 1010) + 1
-                try {
-                    setLoading(true)
-                    const response = await pokeApi.get(`pokemon/${id}`)
-                    setPokemon(pokemon => [...pokemon, response.data])
-                    setLoading(false)
-                }
-                catch (error) {
-                    setLoading(false)
-                    console.log(error)
-                }
+    const url = useNavigate()
+    UseAuthRedirect(isAuth)
+    
+    const getPokemons = async () => {
+        for (let i = 0; i < 3; i++) {
+            const id = Math.floor(Math.random() * 1010) + 1
+            try {
+                setLoading(true)
+                const response = await fetchPokemon(id)
+                setPokemon(pokemon => [...pokemon, response.data])
+            }
+            catch (error) {
+                console.log(error)
+            }
+            finally {
+                setLoading(false)
             }
         }
-        getPokemons()
-    }, [])
+    }
 
+    useEffect(() => {
+        if (pokeballs == 0) {            
+            getPokemons()
+        }
+        else {
+            url('/my-pokemons')
+        }
+    }, [url, pokeballs])
+    
+    
     return (
         <div>
             <div className="card">
